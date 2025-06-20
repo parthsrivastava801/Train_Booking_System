@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import  FormView, TemplateView, ListView,
+from django.views.generic import  FormView, TemplateView, ListView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.shortcuts import  redirect
