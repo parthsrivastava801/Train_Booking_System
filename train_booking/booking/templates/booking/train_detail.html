@@ -1,0 +1,21 @@
+{% extends "booking/base.html" %}
+{% block content %}
+<h2>{{ train.name }} - Details</h2>
+<p>From: {{ train.source }} | To: {{ train.destination }}</p>
+<p>Departure: {{ train.departure_time }}</p>
+
+<h3>Book a Seat</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Book Seat</button>
+</form>
+
+<h4>Available Seats:</h4>
+<p>{{ available_seats|join:", " }}</p>
+
+<h4>Booked Seats:</h4>
+<p>{{ booked_seats|join:", " }}</p>
+
+<a href="{% url 'train_list' %}">Back to Train List</a>
+{% endblock %}

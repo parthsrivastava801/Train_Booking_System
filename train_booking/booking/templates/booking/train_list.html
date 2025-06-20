@@ -1,0 +1,18 @@
+{% extends 'booking/base.html' %}
+{% block content %}
+<h2>Available Trains</h2>
+<form method="get">
+    Source: <input type="text" name="source" value="{{ request.GET.source }}">
+    Destination: <input type="text" name="destination" value="{{ request.GET.destination }}">
+    Date: <input type="date" name="departure_time" value="{{ request.GET.departure_time }}">
+    <button type="submit">Filter</button>
+</form>
+
+<ul>
+{% for train in trains %}
+    <li><a href="{% url 'train_detail' train.id %}">{{ train.name }}</a> — {{ train.source }} → {{ train.destination }}</li>
+{% empty %}
+    <li>No trains found.</li>
+{% endfor %}
+</ul>
+{% endblock %}
