@@ -1,4 +1,5 @@
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from .views import (RegisterUserView, 
                     LoginUserView, 
                     logout_user, 
@@ -7,8 +8,13 @@ from .views import (RegisterUserView,
                     MyBookingsView, 
                     cancel_booking,
                     RegisterView,
-                    LoginView)
+                    LoginView,
+                    TrainViewSet,
+                    BookingViewSet)
 
+router = DefaultRouter()
+router.register(r'trains', TrainViewSet, basename='train')
+router.register(r'bookings', BookingViewSet, basename='booking')
 
 
 urlpatterns = [
@@ -16,6 +22,8 @@ urlpatterns = [
     # API endpoints (DRF) ->
     path('api/register/', RegisterView.as_view(), name='api_register'),
     path('api/login/', LoginView.as_view(), name='api_login'),
+    path('api/', include(router.urls)),
+
     
     # Template views ->
     path('register/', RegisterUserView.as_view(), name='register'),

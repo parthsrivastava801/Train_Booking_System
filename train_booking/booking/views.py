@@ -9,11 +9,15 @@ from django.utils.decorators import method_decorator
 from .models import Train, Booking
 from django.views import View
 
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
+
+from .serializers import TrainSerializer, BookingSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 
@@ -54,6 +58,35 @@ class LoginView(APIView):
             token, _ = Token.objects.get_or_create(user=user)
             return Response({"token": token.key})
         return Response({"error": "Invalid credentials"}, status=400)
+    
+class TrainViewSet(viewsets.ModelViewSet):
+    queryset = Train.objects.all()
+    serializer_class = TrainSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['source', 'destination', 'departure_time']
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
+
+
+class BookingViewSet(viewsets.ModelViewSet):
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        booking = self.get_object()
+        if booking.user != request.user:
+            return Response({'error': 'You can only cancel your own bookings.'}, status=403)
+        return super().destroy(request, *args, **kwargs)
+
 
 
 
