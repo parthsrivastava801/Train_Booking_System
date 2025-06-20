@@ -1,9 +1,21 @@
 from django.urls import path, include
-from .views import RegisterUserView, LoginUserView, logout_user, TrainListView, TrainDetailView, MyBookingsView, cancel_booking
+from .views import (RegisterUserView, 
+                    LoginUserView, 
+                    logout_user, 
+                    TrainListView, 
+                    TrainDetailView, 
+                    MyBookingsView, 
+                    cancel_booking,
+                    RegisterView,
+                    LoginView)
 
 
 
 urlpatterns = [
+
+    # API endpoints (DRF) ->
+    path('api/register/', RegisterView.as_view(), name='api_register'),
+    path('api/login/', LoginView.as_view(), name='api_login'),
     
     # Template views ->
     path('register/', RegisterUserView.as_view(), name='register'),
