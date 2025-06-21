@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d18s*5=xo2ih65y%6+c%+sfyxxh3w&^jl=ro^oi6bd)l6gnb8)'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-secret-key-for-dev-only')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -149,7 +149,6 @@ TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'booking', 'templates')]
 LOGIN_REDIRECT_URL = '/trains-web/'
 LOGIN_URL = '/login/'
 
-ALLOWED_HOSTS = ['*']  
 
 APPEND_SLASH = True
 
