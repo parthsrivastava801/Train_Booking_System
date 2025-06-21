@@ -10,7 +10,8 @@ from .views import (RegisterUserView,
                     RegisterView,
                     LoginView,
                     TrainViewSet,
-                    BookingViewSet)
+                    BookingViewSet,
+                    homepage)
 
 router = DefaultRouter()
 router.register(r'trains', TrainViewSet, basename='train')
@@ -28,6 +29,7 @@ urlpatterns = [
     # Template views ->
     path('register/', RegisterUserView.as_view(), name='register'),
     path('login/', LoginUserView.as_view(), name='login'),
+    path('', homepage, name='homepage'),
     path('logout/', logout_user, name='logout'),
     path('trains-web/', TrainListView.as_view(), name='train_list'),
     path('trains-web/<int:pk>/', TrainDetailView.as_view(), name='train_detail'),

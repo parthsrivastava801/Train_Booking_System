@@ -205,3 +205,9 @@ def cancel_booking(request, pk):
     booking.delete()
     messages.success(request, f"Canceled booking for seat {booking.seat_number} on {train.name}.")
     return redirect('my_bookings')
+
+def homepage(request):
+    if request.user.is_authenticated:
+        return redirect('train_list')
+    return redirect('login')
+
