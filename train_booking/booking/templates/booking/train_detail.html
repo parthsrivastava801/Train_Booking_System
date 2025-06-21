@@ -11,11 +11,27 @@
     <button type="submit">Book Seat</button>
 </form>
 
-<h4>Available Seats:</h4>
-<p>{{ available_seats|join:", " }}</p>
+
+<h4>Available Seats (Live):</h4>
+<p id="available-seats">{{ available_seats|join:", " }}</p>
 
 <h4>Booked Seats:</h4>
-<p>{{ booked_seats|join:", " }}</p>
+<p id="booked-seats">{{ booked_seats|join:", " }}</p>
 
 <a href="{% url 'train_list' %}">Back to Train List</a>
+
+<script>
+    function fetchSeatData() {
+        fetch("{% url 'get_available_seats' train.id %}")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('available-seats').innerText = data.available_seats.join(', ');
+            });
+    }
+
+
+    fetchSeatData();
+    setInterval(fetchSeatData, 5000);
+</script>
+
 {% endblock %}

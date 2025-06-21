@@ -11,7 +11,8 @@ from .views import (RegisterUserView,
                     LoginView,
                     TrainViewSet,
                     BookingViewSet,
-                    homepage)
+                    homepage,
+                    get_available_seats)
 
 router = DefaultRouter()
 router.register(r'trains', TrainViewSet, basename='train')
@@ -35,5 +36,7 @@ urlpatterns = [
     path('trains-web/<int:pk>/', TrainDetailView.as_view(), name='train_detail'),
     path('my-bookings/', MyBookingsView.as_view(), name='my_bookings'),
     path('cancel-booking/<int:pk>/', cancel_booking, name='cancel_booking'),
+    path('trains-web/<int:train_id>/available-seats/', get_available_seats, name='get_available_seats'),
+
     
 ]

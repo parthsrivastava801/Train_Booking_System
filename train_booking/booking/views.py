@@ -18,6 +18,8 @@ from rest_framework.authtoken.models import Token
 from .serializers import TrainSerializer, BookingSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.http import JsonResponse
+
 
 
 
@@ -210,4 +212,14 @@ def homepage(request):
     if request.user.is_authenticated:
         return redirect('train_list')
     return redirect('login')
+
+
+
+@login_required
+def get_available_seats(request, train_id):
+    train = get_object_or_404(Train, id=train_id)
+    booked_seats = Booking.objects.filter(train=train).values_list('seat_number', flat=True)
+    all_seats = list(range(1, train.total_seats + 1))
+    available_seats = [seat for seat in all_seats if seat not in booked_seats]
+    return JsonResponse({'available_seats': available_seats})
 
