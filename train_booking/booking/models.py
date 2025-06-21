@@ -9,8 +9,14 @@ class Train(models.Model):
     total_seats = models.PositiveIntegerField()
     seats_available = models.PositiveIntegerField()
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # If this is a new train, set seats_available equal to total_seats
+            self.seats_available = self.total_seats
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.name} ({self.source} -> {self.destination})"
+        return f"{self.name} ({self.source} -> {self.destination})" 
+    
 
 
 class Booking(models.Model):

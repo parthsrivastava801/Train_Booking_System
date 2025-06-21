@@ -7,6 +7,9 @@ class TrainSerializer(serializers.ModelSerializer):
     class Meta:
         model = Train
         fields = '__all__'
+        read_only_fields = ['seats_available']
+
+
 
 
 
