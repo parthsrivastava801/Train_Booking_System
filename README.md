@@ -1,5 +1,5 @@
 This is an a project made in Django and Django Rest Framework to book Trains accoring to departure time and date. The webpage autoupdates every 5 seconds to provide live updates.
-
+(for some reason the static files are not loading properly on the hosted website)
 Hosted on ---> https://train-booking-system-zphy.onrender.com/
 
 Instructionns to get started --->
