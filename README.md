@@ -51,7 +51,7 @@ Paste these commands in your terminal
 
     DELETE api/trains/{id}/ – (Admin only) Delete a train
 
-    11)   Booking APIs:
+11)   Booking APIs:
 
     POST api/bookings/ – Book a seat on a train
     {
