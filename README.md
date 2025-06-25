@@ -1,4 +1,6 @@
-This is an a project made in Django and Django Rest Framework to book Trains accoring to departure time and date.
+This is an a project made in Django and Django Rest Framework to book Trains accoring to departure time and date. The webpage autoupdates every 5 seconds to provide live updates.
+
+Hosted on ---> https://train-booking-system-zphy.onrender.com/
 
 Instructionns to get started --->
 Paste these commands in your terminal
@@ -26,8 +28,7 @@ Paste these commands in your terminal
 9) open the Authorization tab and type "Authorization" in the Key and type "Token <your-token>" in Value
    ![image](https://github.com/user-attachments/assets/5b49f0ea-da10-4860-a920-4db1c357aa81)
 10) Train APIs:
-
-    GET api/trains/ – View list of available trains
+     GET api/trains/ – View list of available trains
     Optional query params for filtering:
     source
     destination
@@ -50,9 +51,8 @@ Paste these commands in your terminal
     PUT api/trains/{id}/ – (Admin only) Edit train info
 
     DELETE api/trains/{id}/ – (Admin only) Delete a train
-
-11)   Booking APIs:
-
+    
+11) Booking APIs:
     POST api/bookings/ – Book a seat on a train
     {
     "train": 3,
@@ -62,7 +62,5 @@ Paste these commands in your terminal
     GET api/bookings/ – View your bookings
 
     DELETE api/bookings/{id}/ – Cancel a booking
- 
 
-   
-   
+
